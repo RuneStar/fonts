@@ -14,6 +14,8 @@ from fontTools.ttLib.tables._l_o_c_a import *
 
 logging.basicConfig(level=logging.DEBUG)
 
+revision = 0.1
+
 for fileName in sys.argv[1::]:
     fontName = fileName.split('.')[0]
     fontNameHuman = fontName.replace('-', ' ').replace('_', ' ')
@@ -49,7 +51,7 @@ for fileName in sys.argv[1::]:
         name.setName('Regular', 2, *platform)
         name.setName(fontNameHuman, 3, *platform)
         name.setName(fontNameHuman, 4, *platform)
-        name.setName('0.1', 5, *platform)
+        name.setName(str(revision), 5, *platform)
         name.setName(fontName, 6, *platform)
         name.setName('Jagex Ltd.', 9, *platform)
         name.setName('http://oldschool.runescape.com', 12, *platform)
@@ -99,7 +101,7 @@ for fileName in sys.argv[1::]:
     head.modified = head.created
     head.magicNumber = 0x5F0F3CF5
     head.tableVersion = 1.0
-    head.fontRevision = 1.0
+    head.fontRevision = revision
     head.checkSumAdjustment = 0
     head.unitsPerEm = 2 ** (maxPowerOfTwo(data['maxDim']) + 1)
     head.xMin = 0
@@ -113,10 +115,10 @@ for fileName in sys.argv[1::]:
     font['head'] = head
 
     os2 = table_O_S_2f_2()
-    os2.version = 2
+    os2.version = 4
     os2.xAvgCharWidth = sum(map(lambda x: x['width'], data['glyphs'])) // len(data['glyphs'])
-    os2.usWeightClass = 400
-    os2.usWidthClass = 5
+    os2.usWeightClass = 400  # normal
+    os2.usWidthClass = 5  # normal
     os2.fsType = 0
     os2.ySubscriptXSize = data['maxDim'] // 2
     os2.ySubscriptYSize = data['maxDim'] // 2
@@ -140,12 +142,12 @@ for fileName in sys.argv[1::]:
     os2.panose.bLetterForm = 0
     os2.panose.bMidline = 0
     os2.panose.bXHeight = 0
-    os2.ulUnicodeRange1 = 1
-    os2.ulUnicodeRange2 = 0
+    os2.ulUnicodeRange1 = 0b11  # basic latin, latin 1 supplement
+    os2.ulUnicodeRange2 = 0b10  # currency symbols
     os2.ulUnicodeRange3 = 0
     os2.ulUnicodeRange4 = 0
     os2.achVendID = ""
-    os2.fsSelection = 0b1000000
+    os2.fsSelection = 0b1000000  # regular
     os2.usFirstCharIndex = 0
     os2.usLastCharIndex = 0
     os2.sTypoAscender = data['ascent']
@@ -153,12 +155,12 @@ for fileName in sys.argv[1::]:
     os2.sTypoLineGap = 0
     os2.usWinAscent = data['ascent']
     os2.usWinDescent = data['maxDescent']
-    os2.ulCodePageRange1 = 0b111111011
+    os2.ulCodePageRange1 = 1  # cp-1252
     os2.ulCodePageRange2 = 0
     os2.sxHeight = data['ascent'] // 2
     os2.sCapHeight = data['ascent']
     os2.usDefaultChar = 0
-    os2.usBreakChar = 32
+    os2.usBreakChar = 32  # space
     os2.usMaxContext = 1
     font['OS/2'] = os2
 
@@ -229,7 +231,7 @@ for fileName in sys.argv[1::]:
 
     font.saveXML(fontName + '.ttx')
 
-    font2 = TTFont(recalcBBoxes=True)
+    font2 = TTFont(recalcTimestamp=False)
     font2.importXML(fontName + '.ttx')
     font2.save(fontName + '.ttf')
 
