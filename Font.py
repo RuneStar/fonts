@@ -91,7 +91,10 @@ for fileName in sys.argv[1::]:
     hmtx.metrics = {}
     for glyph in data['glyphs']:
         hmtx.metrics[glyph['name']] = (glyph['advance'], glyph['leftBearing'])
-    hmtx.metrics['.notdef'] = hmtx.metrics['QUESTION MARK']
+    if 'QUESTION MARK' in hmtx.metrics:
+        hmtx.metrics['.notdef'] = hmtx.metrics['QUESTION MARK']
+    else:
+        hmtx.metrics['.notdef'] = hmtx.metrics['SPACE']
     font['hmtx'] = hmtx
 
     head = table__h_e_a_d()
@@ -142,8 +145,8 @@ for fileName in sys.argv[1::]:
     os2.panose.bLetterForm = 0
     os2.panose.bMidline = 0
     os2.panose.bXHeight = 0
-    os2.ulUnicodeRange1 = 0b11  # basic latin, latin 1 supplement
-    os2.ulUnicodeRange2 = 0b10  # currency symbols
+    os2.ulUnicodeRange1 = 0  # calculated later
+    os2.ulUnicodeRange2 = 0
     os2.ulUnicodeRange3 = 0
     os2.ulUnicodeRange4 = 0
     os2.achVendID = ""
@@ -223,12 +226,16 @@ for fileName in sys.argv[1::]:
                     g.flags.extend(flags)
                     g.endPtsOfContours.append(len(g.coordinates) - 1)
         glyf.glyphs[glyph['name']] = g
-    glyf.glyphs['.notdef'] = glyf.glyphs['QUESTION MARK']
+    if 'QUESTION MARK' in glyf.glyphs:
+        glyf.glyphs['.notdef'] = glyf.glyphs['QUESTION MARK']
+    else:
+        glyf.glyphs['.notdef'] = glyf.glyphs['SPACE']
     font['glyf'] = glyf
 
     loca = table__l_o_c_a()
     font['loca'] = loca
 
+    os2.recalcUnicodeRanges(font)
     font.saveXML(fontName + '.ttx')
 
     font2 = TTFont(recalcTimestamp=False)
