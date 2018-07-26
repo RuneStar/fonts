@@ -25,14 +25,14 @@ for fileName in sys.argv[1::]:
 
     for glyph in data['glyphs']:
         glyph['name'] = Unicode[glyph['codePoint']]
-    data['maxAdvance'] = max(map(lambda x: x['advance'], data['glyphs']))
+    data['maxAdvance'] = max((g['advance'] for g in data['glyphs']))
     data['maxDim'] = max(data['maxAdvance'], data['ascent'])
 
     font = TTFont()
 
-    font.glyphOrder = ['.notdef'] + list(map(lambda x: x['name'], data['glyphs']))
+    font.glyphOrder = ['.notdef'] + [g['name'] for g in data['glyphs']]
 
-    post = table__p_o_s_t()
+    font['post'] = post = table__p_o_s_t()
     post.formatType = 3.0
     post.italicAngle = 0.0
     post.underlinePosition = -1
@@ -40,9 +40,8 @@ for fileName in sys.argv[1::]:
     post.isFixedPitch = 0
     post.minMemType42 = post.maxMemType42 = post.minMemType1 = post.maxMemType1 = 0
     post.glyphOrder = None
-    font['post'] = post
 
-    name = table__n_a_m_e()
+    font['name'] = name = table__n_a_m_e()
     for platform in ((1, 0, 0), (3, 1, 0x409)):
         name.setName(fontNameHuman, 1, *platform)
         name.setName('Regular', 2, *platform)
@@ -52,9 +51,8 @@ for fileName in sys.argv[1::]:
         name.setName(fontName, 6, *platform)
         name.setName('Jagex Ltd.', 9, *platform)
         name.setName('http://oldschool.runescape.com', 12, *platform)
-    font['name'] = name
 
-    maxp = table__m_a_x_p()
+    font['maxp'] = maxp = table__m_a_x_p()
     maxp.tableVersion = 0x10000
     maxp.numGlyphs = 0  # calculated later
     maxp.maxPoints = maxp.maxContours = 0  # calculated later
@@ -69,31 +67,24 @@ for fileName in sys.argv[1::]:
     maxp.maxSizeOfInstructions = 0
     maxp.maxComponentElements = 0
     maxp.maxComponentDepth = 0
-    font['maxp'] = maxp
 
-    cmap = table__c_m_a_p()
+    font['cmap'] = cmap = table__c_m_a_p()
     cmap.tableVersion = 0
     cmap4 = cmap_format_4(cmap_format_4_format)
     cmap4.platformID = 0
     cmap4.platEncID = 3
     cmap4.language = 0
-    cmap4.cmap = {}
-    for glyph in data['glyphs']:
-        cmap4.cmap[glyph['codePoint']] = glyph['name']
+    cmap4.cmap = {g['codePoint']: g['name'] for g in data['glyphs']}
     cmap.tables = [cmap4]
-    font['cmap'] = cmap
 
-    hmtx = table__h_m_t_x()
-    hmtx.metrics = {}
-    for glyph in data['glyphs']:
-        hmtx.metrics[glyph['name']] = (glyph['advance'], glyph['leftBearing'])
+    font['hmtx'] = hmtx = table__h_m_t_x()
+    hmtx.metrics = {g['name']: (g['advance'], g['leftBearing']) for g in data['glyphs']}
     if 'QUESTION MARK' in hmtx.metrics:
         hmtx.metrics['.notdef'] = hmtx.metrics['QUESTION MARK']
     else:
         hmtx.metrics['.notdef'] = hmtx.metrics['SPACE']
-    font['hmtx'] = hmtx
 
-    head = table__h_e_a_d()
+    font['head'] =head = table__h_e_a_d()
     head.macStyle = 0
     head.flags = 0
     head.created = timestampNow()
@@ -108,15 +99,14 @@ for fileName in sys.argv[1::]:
     head.fontDirectionHint = 2
     head.indexToLocFormat = 0
     head.glyphDataFormat = 0
-    font['head'] = head
 
-    os2 = table_O_S_2f_2()
+    font['OS/2'] = os2 = table_O_S_2f_2()
     os2.version = 4
-    os2.xAvgCharWidth = sum(map(lambda x: x['width'], data['glyphs'])) // len(data['glyphs'])
+    os2.xAvgCharWidth = 0  # calculated later
     os2.usWeightClass = 400  # normal
     os2.usWidthClass = 5  # normal
     os2.fsType = 0
-    os2.ySubscriptXSize = os2.ySubscriptYSize = os2.ySuperscriptXSize = os2.ySuperscriptYSize = data['maxDim'] // 2
+    os2.ySubscriptXSize = os2.ySubscriptYSize = os2.ySuperscriptXSize = os2.ySuperscriptYSize = head.unitsPerEm // 2
     os2.ySubscriptXOffset = 0
     os2.ySubscriptYOffset = 0
     os2.ySuperscriptXOffset = 0
@@ -151,9 +141,8 @@ for fileName in sys.argv[1::]:
     os2.usDefaultChar = 0
     os2.usBreakChar = 32  # space
     os2.usMaxContext = 1
-    font['OS/2'] = os2
 
-    hhea = table__h_h_e_a()
+    font['hhea'] = hhea = table__h_h_e_a()
     hhea.tableVersion = 0x00010000
     hhea.ascent = data['ascent']
     hhea.descent = data['maxDescent']
@@ -168,9 +157,8 @@ for fileName in sys.argv[1::]:
     hhea.reserved0 = hhea.reserved1 = hhea.reserved2 = hhea.reserved3 = 0
     hhea.metricDataFormat = 0
     hhea.numberOfHMetrics = 0  # calculated later
-    font['hhea'] = hhea
 
-    glyf = table__g_l_y_f()
+    font['glyf'] = glyf = table__g_l_y_f()
     glyf.glyphs = {}
     for glyph in data['glyphs']:
         g = Glyph()
@@ -200,7 +188,6 @@ for fileName in sys.argv[1::]:
         glyf.glyphs['.notdef'] = glyf.glyphs['QUESTION MARK']
     else:
         glyf.glyphs['.notdef'] = glyf.glyphs['SPACE']
-    font['glyf'] = glyf
 
     font['loca'] = table__l_o_c_a()
 
