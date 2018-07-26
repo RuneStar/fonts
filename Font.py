@@ -38,10 +38,7 @@ for fileName in sys.argv[1::]:
     post.underlinePosition = -1
     post.underlineThickness = 1
     post.isFixedPitch = 0
-    post.minMemType42 = 0
-    post.maxMemType42 = 0
-    post.minMemType1 = 0
-    post.maxMemType1 = 0
+    post.minMemType42 = post.maxMemType42 = post.minMemType1 = post.maxMemType1 = 0
     post.glyphOrder = None
     font['post'] = post
 
@@ -58,13 +55,12 @@ for fileName in sys.argv[1::]:
     font['name'] = name
 
     maxp = table__m_a_x_p()
-    maxp.numGlyphs = len(data['glyphs']) + 1
     maxp.tableVersion = 0x10000
-    maxp.maxPoints = 256
-    maxp.maxContours = 64
+    maxp.numGlyphs = 0  # calculated later
+    maxp.maxPoints = maxp.maxContours = 0  # calculated later
     maxp.maxCompositePoints = 0
     maxp.maxCompositeContours = 0
-    maxp.maxZones = 2
+    maxp.maxZones = 1
     maxp.maxTwilightPoints = 0
     maxp.maxStorage = 0
     maxp.maxFunctionDefs = 0
@@ -106,11 +102,8 @@ for fileName in sys.argv[1::]:
     head.tableVersion = 1.0
     head.fontRevision = revision
     head.checkSumAdjustment = 0
-    head.unitsPerEm = 2 ** (maxPowerOfTwo(data['maxDim']) + 1)
-    head.xMin = 0
-    head.yMin = data['maxDescent'] * -1
-    head.xMax = data['maxAdvance']
-    head.yMax = data['ascent']
+    head.unitsPerEm = max(16, 2 ** (maxPowerOfTwo(data['maxDim']) + 1))
+    head.xMin = head.yMin = head.xMax = head.yMax = 0  # calculated later
     head.lowestRecPPEM = 12
     head.fontDirectionHint = 2
     head.indexToLocFormat = 0
@@ -123,12 +116,9 @@ for fileName in sys.argv[1::]:
     os2.usWeightClass = 400  # normal
     os2.usWidthClass = 5  # normal
     os2.fsType = 0
-    os2.ySubscriptXSize = data['maxDim'] // 2
-    os2.ySubscriptYSize = data['maxDim'] // 2
+    os2.ySubscriptXSize = os2.ySubscriptYSize = os2.ySuperscriptXSize = os2.ySuperscriptYSize = data['maxDim'] // 2
     os2.ySubscriptXOffset = 0
     os2.ySubscriptYOffset = 0
-    os2.ySuperscriptXSize = data['maxDim'] // 2
-    os2.ySuperscriptYSize = data['maxDim'] // 2
     os2.ySuperscriptXOffset = 0
     os2.ySuperscriptYOffset = 0
     os2.yStrikeoutSize = data['maxAdvance']
@@ -145,14 +135,10 @@ for fileName in sys.argv[1::]:
     os2.panose.bLetterForm = 0
     os2.panose.bMidline = 0
     os2.panose.bXHeight = 0
-    os2.ulUnicodeRange1 = 0  # calculated later
-    os2.ulUnicodeRange2 = 0
-    os2.ulUnicodeRange3 = 0
-    os2.ulUnicodeRange4 = 0
+    os2.ulUnicodeRange1 = os2.ulUnicodeRange2 = os2.ulUnicodeRange3 = os2.ulUnicodeRange4 = 0  # calculated later
     os2.achVendID = ""
     os2.fsSelection = 0b1000000  # regular
-    os2.usFirstCharIndex = 0
-    os2.usLastCharIndex = 0
+    os2.usFirstCharIndex = os2.usLastCharIndex = 0  # calculated later
     os2.sTypoAscender = data['ascent']
     os2.sTypoDescender = data['maxDescent'] * -1
     os2.sTypoLineGap = 0
@@ -172,19 +158,16 @@ for fileName in sys.argv[1::]:
     hhea.ascent = data['ascent']
     hhea.descent = data['maxDescent']
     hhea.lineGap = 0
-    hhea.advanceWidthMax = data['maxAdvance']
+    hhea.advanceWidthMax = 0  # calculated later
     hhea.minLeftSideBearing = 0
     hhea.minRightSideBearing = 0
-    hhea.xMaxExtent = data['maxAdvance']
+    hhea.xMaxExtent = 0  # calculated later
     hhea.caretSlopeRise = 1
     hhea.caretSlopeRun = 0
     hhea.caretOffset = 0
-    hhea.reserved0 = 0
-    hhea.reserved1 = 0
-    hhea.reserved2 = 0
-    hhea.reserved3 = 0
+    hhea.reserved0 = hhea.reserved1 = hhea.reserved2 = hhea.reserved3 = 0
     hhea.metricDataFormat = 0
-    hhea.numberOfHMetrics = len(font.glyphOrder)
+    hhea.numberOfHMetrics = 0  # calculated later
     font['hhea'] = hhea
 
     glyf = table__g_l_y_f()
@@ -192,11 +175,11 @@ for fileName in sys.argv[1::]:
     for glyph in data['glyphs']:
         g = Glyph()
         g.program = None
-        g.xMin = 0
-        g.yMin = 0
-        g.xMax = 0
-        g.yMax = 0
+        g.xMin = g.yMin = g.xMax = g.yMax = 0  # calculated later
         g.numberOfContours = 0
+        g.coordinates = []
+        g.flags = []
+        g.endPtsOfContours = []
         x = glyph['leftBearing']
         y = data['ascent'] - glyph['topBearing']
         width = glyph['width']
@@ -208,23 +191,10 @@ for fileName in sys.argv[1::]:
             if p == 1:
                 g.numberOfContours += 1
                 coords = GlyphCoordinates()
-                flags = [True, True, True, True]
-                coords.append((x, y))
-                coords.append((x + 1, y))
-                coords.append((x + 1, y + 1))
-                coords.append((x, y + 1))
-                g.xMin = min(g.xMin, x)
-                g.yMin = min(g.yMin, y)
-                g.xMax = max(g.xMax, x + 1)
-                g.yMax = max(g.yMax, y + 1)
-                if not hasattr(g, 'coordinates'):
-                    g.coordinates = coords
-                    g.flags = flags
-                    g.endPtsOfContours = [len(coords) - 1]
-                else:
-                    g.coordinates.extend(coords)
-                    g.flags.extend(flags)
-                    g.endPtsOfContours.append(len(g.coordinates) - 1)
+                coords.extend([(x, y), (x + 1, y), (x + 1, y + 1), (x, y + 1)])
+                g.coordinates.extend(coords)
+                g.flags.extend([True, True, True, True])
+                g.endPtsOfContours.append(len(g.coordinates) - 1)
         glyf.glyphs[glyph['name']] = g
     if 'QUESTION MARK' in glyf.glyphs:
         glyf.glyphs['.notdef'] = glyf.glyphs['QUESTION MARK']
@@ -232,8 +202,7 @@ for fileName in sys.argv[1::]:
         glyf.glyphs['.notdef'] = glyf.glyphs['SPACE']
     font['glyf'] = glyf
 
-    loca = table__l_o_c_a()
-    font['loca'] = loca
+    font['loca'] = table__l_o_c_a()
 
     os2.recalcUnicodeRanges(font)
     font.saveXML(fontName + '.ttx')
@@ -242,7 +211,9 @@ for fileName in sys.argv[1::]:
     font2.importXML(fontName + '.ttx')
     font2.save(fontName + '.ttf')
 
+    font2.saveXML(fontName + ".2.ttx")
+
     # open ttf in fontforge
     # remove all overlaps
     # simplify
-    # generate ttf font
+    # generate ttf and otf
