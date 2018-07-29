@@ -9,5 +9,5 @@ For exact rendering use the below sizes and disable anti-aliasing
 | Plain 11 | 12 |
 | Plain 12 | 12 |
 | Bold 12 | 12 |
-| Q 8 | 24 |
-| Large | 24 |
+| Quill 8 | 24 |
+| Quill | 24 |
