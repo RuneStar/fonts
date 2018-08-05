@@ -145,7 +145,7 @@ for fileName in sys.argv[1::]:
     font['hhea'] = hhea = table__h_h_e_a()
     hhea.tableVersion = 0x00010000
     hhea.ascent = data['ascent']
-    hhea.descent = data['maxDescent']
+    hhea.descent = data['maxDescent'] * -1
     hhea.lineGap = 0
     hhea.advanceWidthMax = 0  # calculated later
     hhea.minLeftSideBearing = 0
