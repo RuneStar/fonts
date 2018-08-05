@@ -137,8 +137,8 @@ for fileName in sys.argv[1::]:
     os2.usWinDescent = data['maxDescent']
     os2.ulCodePageRange1 = 1  # cp-1252
     os2.ulCodePageRange2 = 0
-    os2.sxHeight = data['ascent'] // 2
-    os2.sCapHeight = data['ascent']
+    os2.sxHeight = data['ascent'] - next(g for g in data['glyphs'] if g['name'] == 'LATIN SMALL LETTER X')['topBearing']
+    os2.sCapHeight = data['ascent'] - next(g for g in data['glyphs'] if g['name'] == 'LATIN CAPITAL LETTER X')['topBearing']
     os2.usDefaultChar = 0
     os2.usBreakChar = 32  # space
     os2.usMaxContext = 1
