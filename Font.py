@@ -113,7 +113,7 @@ for fileName in sys.argv[1::]:
     os2.ySuperscriptXOffset = 0
     os2.ySuperscriptYOffset = 0
     os2.yStrikeoutSize = data['maxAdvance']
-    os2.yStrikeoutPosition = data['ascent'] // 2
+    os2.yStrikeoutPosition = int(data['ascent'] * 0.70)
     os2.sFamilyClass = 0
     os2.panose = Panose()
     os2.panose.bFamilyType = 0
