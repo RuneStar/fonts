@@ -11,6 +11,7 @@ from fontTools.ttLib.tables.O_S_2f_2 import *
 from fontTools.ttLib.tables._h_h_e_a import *
 from fontTools.ttLib.tables._g_l_y_f import *
 from fontTools.ttLib.tables._l_o_c_a import *
+from fontTools.ttLib.tables._g_a_s_p import *
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -190,6 +191,9 @@ for fileName in sys.argv[1::]:
         glyf.glyphs['.notdef'] = glyf.glyphs['SPACE']
 
     font['loca'] = table__l_o_c_a()
+
+    font['gasp'] = gasp = table__g_a_s_p()
+    gasp.gaspRange = {0xFFFF: 0}
 
     os2.recalcUnicodeRanges(font)
     font.saveXML(fontName + '.ttx')
