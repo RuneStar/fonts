@@ -1,4 +1,8 @@
-[Download](https://github.com/RuneStar/fonts/releases) in TrueType or OpenType
+[**Download**](https://github.com/RuneStar/fonts/releases) in TrueType or OpenType
+
+Exactly as appears in-game
+
+All 191 characters, including symbols and accented letters
 
 ![Preview](Preview.png)
 
