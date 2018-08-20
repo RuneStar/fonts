@@ -46,14 +46,20 @@ for fileName in sys.argv[1::]:
 
     font['name'] = name = table__n_a_m_e()
     for platform in ((1, 0, 0), (3, 1, 0x409)):
+        name.setName('Copyright 1999-2018 Jagex Ltd.', 0, *platform)  # copyright notice
         name.setName(fontNameHuman, 1, *platform)
         name.setName('Regular', 2, *platform)
         name.setName(fontNameHuman, 3, *platform)
         name.setName(fontNameHuman, 4, *platform)
         name.setName(str(revision), 5, *platform)
         name.setName(fontName, 6, *platform)
-        name.setName('Jagex Ltd.', 9, *platform)
-        name.setName('http://oldschool.runescape.com', 12, *platform)
+        name.setName('RuneScape is a registered trademark of Jagex Ltd.', 7, *platform)  # trademark notice
+        name.setName('Jagex Ltd.', 8, *platform)  # manufacturer
+        name.setName('Jagex Ltd.', 9, *platform)  # designer
+        name.setName('From Old School RuneScape, a fantasy MMORPG', 10, *platform)  # description
+        name.setName('http://runestar.org', 11, *platform)  # vendor url
+        name.setName('http://oldschool.runescape.com', 12, *platform)  # designer url
+        name.setName('http://jagex.com', 14, *platform)  # license url
 
     font['maxp'] = maxp = table__m_a_x_p()
     maxp.tableVersion = 0x10000
