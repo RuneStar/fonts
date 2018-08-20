@@ -32,6 +32,8 @@ for fileName in sys.argv[1::]:
     font = TTFont()
 
     font.glyphOrder = ['.notdef'] + [g['name'] for g in data['glyphs']]
+    if 'NO-BREAK SPACE' not in font.glyphOrder:
+        font.glyphOrder.append('NO-BREAK SPACE')
 
     font['post'] = post = table__p_o_s_t()
     post.formatType = 3.0
@@ -76,10 +78,13 @@ for fileName in sys.argv[1::]:
     cmap4.platEncID = 3
     cmap4.language = 0
     cmap4.cmap = {g['codePoint']: g['name'] for g in data['glyphs']}
+    cmap4.cmap[160] = 'NO-BREAK SPACE'
     cmap.tables = [cmap4]
 
     font['hmtx'] = hmtx = table__h_m_t_x()
     hmtx.metrics = {g['name']: (g['advance'], g['leftBearing']) for g in data['glyphs']}
+    if 'NO-BREAK SPACE' not in hmtx.metrics:
+        hmtx.metrics['NO-BREAK SPACE'] = hmtx.metrics['SPACE']
     if 'QUESTION MARK' in hmtx.metrics:
         hmtx.metrics['.notdef'] = hmtx.metrics['QUESTION MARK']
     else:
@@ -185,6 +190,8 @@ for fileName in sys.argv[1::]:
                 g.flags.extend([True, True, True, True])
                 g.endPtsOfContours.append(len(g.coordinates) - 1)
         glyf.glyphs[glyph['name']] = g
+    if 'NO-BREAK SPACE' not in glyf.glyphs:
+        glyf.glyphs['NO-BREAK SPACE'] = glyf.glyphs['SPACE']
     if 'QUESTION MARK' in glyf.glyphs:
         glyf.glyphs['.notdef'] = glyf.glyphs['QUESTION MARK']
     else:
