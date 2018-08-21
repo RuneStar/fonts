@@ -8,13 +8,13 @@ All 192 characters, including symbols and accented letters
 
 For exact rendering use the below sizes and disable anti-aliasing
 
-| Name | pt |
-| --- | --- |
-| Plain 11 | 12 |
-| Plain 12 | 12 |
-| Bold 12 | 12 |
-| Quill 8 | 24 |
-| Quill | 24 |
+| Name | pt | px |
+| --- | --- | --- |
+| Plain 11 | 12 | 16 |
+| Plain 12 | 12 | 16 |
+| Bold 12 | 12 | 16 |
+| Quill 8 | 24 | 32 |
+| Quill | 24 | 32 |
 
 Supported characters:
 
