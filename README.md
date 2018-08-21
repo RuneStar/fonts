@@ -16,6 +16,16 @@ For exact rendering use the below sizes and disable anti-aliasing
 | Quill 8 | 24 | 32 |
 | Quill | 24 | 32 |
 
+Source of font names:
+
+| Name | Name in Client | Name in Cache |
+| --- | --- | --- |
+| Plain 11 | PLAIN11 | p11_full |
+| Plain 12 | PLAIN12 | p12_full |
+| Bold 12 | BOLD12 | b12_full |
+| Quill 8 | n/a | q8_full |
+| Quill | n/a | ? |
+
 Supported characters:
 
 | Character | Code Point | Name |
