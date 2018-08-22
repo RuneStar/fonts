@@ -45,7 +45,7 @@ for fileName in sys.argv[1::]:
     post.glyphOrder = None
 
     font['name'] = name = table__n_a_m_e()
-    for platform in ((1, 0, 0), (3, 1, 0x409)):
+    for platform in ((1, 0, 0), (3, 1, 0x409)):  # (Mac, Roman, English), (Windows, Unicode BMP, English US)
         name.setName('Copyright 1999-2018 Jagex Ltd.', 0, *platform)  # copyright notice
         name.setName(fontNameHuman, 1, *platform)
         name.setName('Regular', 2, *platform)
@@ -79,13 +79,13 @@ for fileName in sys.argv[1::]:
 
     font['cmap'] = cmap = table__c_m_a_p()
     cmap.tableVersion = 0
-    cmap4 = cmap_format_4(cmap_format_4_format)
-    cmap4.platformID = 0
-    cmap4.platEncID = 3
-    cmap4.language = 0
-    cmap4.cmap = {g['codePoint']: g['name'] for g in data['glyphs']}
-    cmap4.cmap[160] = 'NO-BREAK SPACE'
-    cmap.tables = [cmap4]
+    cmapWin = cmap_format_4(4)
+    cmapWin.platformID = 3  # Windows
+    cmapWin.platEncID = 1  # Unicode BMP
+    cmapWin.language = 0
+    cmapWin.cmap = {g['codePoint']: g['name'] for g in data['glyphs']}
+    cmapWin.cmap[160] = 'NO-BREAK SPACE'
+    cmap.tables = [cmapWin]
 
     font['hmtx'] = hmtx = table__h_m_t_x()
     hmtx.metrics = {g['name']: (g['advance'], g['leftBearing']) for g in data['glyphs']}
