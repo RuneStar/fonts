@@ -1,4 +1,5 @@
 import json
+import subprocess
 
 from fontTools.ttLib import *
 from fontTools.ttLib.tables._c_m_a_p import *
@@ -214,10 +215,7 @@ for fileName in sys.argv[1::]:
     font2 = TTFont(recalcTimestamp=False)
     font2.importXML(fontName + '.ttx')
     font2.save(fontName + '.ttf')
+    os.remove(fontName + '.ttx')
 
-    font2.saveXML(fontName + ".2.ttx")
-
-    # open ttf in fontforge
-    # remove all overlaps
-    # simplify
-    # generate ttf and otf
+cmd = [r'C:\Program Files (x86)\FontForgeBuilds\bin\fontforge.exe', '-lang=py', '-script', 'FontForgeScript.py']
+subprocess.run(cmd + sys.argv[1::])
