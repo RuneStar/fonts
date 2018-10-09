@@ -1,3 +1,5 @@
+[![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
+
 [**Download**](https://github.com/RuneStar/fonts/releases) in TrueType or OpenType
 
 Exactly as appears in-game
