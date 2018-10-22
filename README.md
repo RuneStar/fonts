@@ -20,7 +20,7 @@ For exact rendering use the below sizes and disable anti-aliasing
 
 Source of font names:
 
-| Name | Name in Client | Name in Cache |
+| Name | Name in Client | [Name in Cache](https://github.com/RuneStar/cache-names) |
 | --- | --- | --- |
 | Plain 11 | PLAIN11 | p11_full |
 | Plain 12 | PLAIN12 | p12_full |
