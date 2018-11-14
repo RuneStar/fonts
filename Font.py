@@ -18,11 +18,11 @@ logging.basicConfig(level=logging.DEBUG)
 
 revision = 0.1
 
-for fileName in sys.argv[1::]:
+for fileName in os.listdir('data'):
     fontName = fileName.split('.')[0]
-    fontNameHuman = fontName.replace('-', ' ').replace('_', ' ')
+    fontNameHuman = fontName.replace('-', ' ')
 
-    with open(fileName) as f:
+    with open(os.path.join('data', fileName)) as f:
         data = json.load(f)
 
     for glyph in data['glyphs']:
@@ -210,12 +210,16 @@ for fileName in sys.argv[1::]:
     gasp.gaspRange = {0xFFFF: 0}
 
     os2.recalcUnicodeRanges(font)
-    font.saveXML(fontName + '.ttx')
+
+    os.makedirs('ttf', exist_ok=True)
+    ttfFile = os.path.join('ttf', fontName + '.ttf')
+    ttxFile = fontName + '.ttx'
+
+    font.saveXML(ttxFile)
 
     font2 = TTFont(recalcTimestamp=False)
-    font2.importXML(fontName + '.ttx')
-    font2.save(fontName + '.ttf')
-    os.remove(fontName + '.ttx')
+    font2.importXML(ttxFile)
+    font2.save(ttfFile)
+    os.remove(ttxFile)
 
-cmd = [r'C:\Program Files (x86)\FontForgeBuilds\bin\fontforge.exe', '-lang=py', '-script', 'FontForgeScript.py']
-subprocess.run(cmd + sys.argv[1::])
+subprocess.run([r'C:\Program Files (x86)\FontForgeBuilds\bin\fontforge.exe', '-lang=py', '-script', 'FontForgeScript.py'])

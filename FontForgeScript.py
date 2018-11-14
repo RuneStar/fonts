@@ -1,10 +1,15 @@
 import fontforge
-import sys
+import os
 
-for fileName in sys.argv[1::]:
+for fileName in os.listdir('ttf'):
     fontNameBase = fileName.split('.')[0]
-    fontNameTtf = fontNameBase + '.ttf'
-    fontNameOtf = fontNameBase + '.otf'
+    fontNameTtf = os.path.join('ttf', fontNameBase + '.ttf')
+    if not os.path.isdir('otf'):
+        os.makedirs('otf')
+    fontNameOtf = os.path.join('otf', fontNameBase + '.otf')
+    if not os.path.isdir('otf-1k'):
+        os.makedirs('otf-1k')
+    fontNameOtf1k = os.path.join('otf-1k', fontNameBase + '.otf')
     print(fontNameBase)
 
     font = fontforge.open(fontNameTtf)
@@ -14,8 +19,10 @@ for fileName in sys.argv[1::]:
 
     font.generate(fontNameTtf, flags='short-post')
 
-    font.em = 1000
     font.private['BlueValues'] = []
     font.private['BlueScale'] = 0.0
     font.private['BlueFuzz'] = 0.0
     font.generate(fontNameOtf, flags='short-post')
+
+    font.em = 1000
+    font.generate(fontNameOtf1k, flags='short-post')
