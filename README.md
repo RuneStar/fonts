@@ -1,6 +1,14 @@
+# Old School RuneScape Fonts
+
 [![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
-[**Download**](https://github.com/RuneStar/fonts/releases) in TrueType or OpenType
+[**Download**](https://github.com/RuneStar/fonts/releases) in the following formats
+
+| name | extension | type | outlines | hints | em-size |
+| --- | --- | --- | --- | --- | --- |
+| ttf | .ttf | TrueType | TTF | GASP | minimum |
+| otf | .otf | OpenType | CFF | CFF  | minimum |
+| otf-1k | .otf | OpenType | CFF | CFF | 1000 |
 
 Exactly as appears in-game
 
