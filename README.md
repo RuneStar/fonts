@@ -9,6 +9,7 @@
 | ttf | .ttf | TrueType | TTF | GASP | minimum |
 | otf | .otf | OpenType | CFF | CFF  | minimum |
 | otf-1k | .otf | OpenType | CFF | CFF | 1000 |
+| svg | .svg | SVG | n/a | n/a | minimum |
 
 Exactly as appears in-game
 
