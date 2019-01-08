@@ -6,10 +6,10 @@
 
 | name | extension | type | outlines | hints | em-size |
 | --- | --- | --- | --- | --- | --- |
-| `ttf` | `.ttf` | TrueType | TTF | GASP | minimum |
-| `otf` | `.otf` | OpenType | CFF | CFF  | minimum |
-| `otf-1k` | `.otf` | OpenType | CFF | CFF | 1000 |
-| `svg` | `.svg` | SVG | n/a | n/a | minimum |
+| ttf | .ttf | TrueType | TTF | GASP | minimum |
+| otf | .otf | OpenType | CFF | CFF  | minimum |
+| otf-1k | .otf | OpenType | CFF | CFF | 1000 |
+| svg | .svg | SVG | n/a | n/a | minimum |
 
 Exactly as appears in-game
 
@@ -31,16 +31,16 @@ Source of font names:
 
 | Name | ID | Name in Client | [Name in Cache](https://github.com/RuneStar/cache-names) |
 | --- | --- | --- | --- |
-| Plain 11 | 494 | `PLAIN11` | `p11_full` |
-| Plain 12 | 495 | `PLAIN12` | `p12_full` |
-| Bold 12 | 496 | `BOLD12` | `b12_full` |
-| Quill 8 | 497 | n/a | `q8_full` |
+| Plain 11 | 494 | PLAIN11 | p11_full |
+| Plain 12 | 495 | PLAIN12 | p12_full |
+| Bold 12 | 496 | BOLD12 | b12_full |
+| Quill 8 | 497 | n/a | q8_full |
 | Quill | 645 | n/a | ? |
-| Quill Caps Large | 646 | n/a | `quill_caps_large` |
-| Fairy | 647 | n/a | `lunar_alphabet` |
-| Fairy Large | 648 | n/a | `lunar_alphabet_lrg` |
-| Barbarian Assault | 764 | n/a | `barbassault_font` |
-| Surok | 819 | n/a | `surok_font` |
+| Quill Caps Large | 646 | n/a | quill_caps_large |
+| Fairy | 647 | n/a | lunar_alphabet |
+| Fairy Large | 648 | n/a | lunar_alphabet_lrg |
+| Barbarian Assault | 764 | n/a | barbassault_font |
+| Surok | 819 | n/a | surok_font |
 
 Supported characters:
 
