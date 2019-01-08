@@ -28,13 +28,18 @@ For exact rendering use the below sizes and disable anti-aliasing
 
 Source of font names:
 
-| Name | Name in Client | [Name in Cache](https://github.com/RuneStar/cache-names) |
-| --- | --- | --- |
-| Plain 11 | PLAIN11 | p11_full |
-| Plain 12 | PLAIN12 | p12_full |
-| Bold 12 | BOLD12 | b12_full |
-| Quill 8 | n/a | q8_full |
-| Quill | n/a | ? |
+| Name | ID | Name in Client | [Name in Cache](https://github.com/RuneStar/cache-names) |
+| --- | --- | --- | --- |
+| Plain 11 | 494 | `PLAIN11` | `p11_full` |
+| Plain 12 | 495 | `PLAIN12` | `p12_full` |
+| Bold 12 | 496 | `BOLD12` | `b12_full` |
+| Quill 8 | 497 | n/a | `q8_full` |
+| Quill | 645 | n/a | ? |
+| Quill Caps Large | 646 | n/a | `quill_caps_large` |
+| Fairy | 647 | n/a | `lunar_alphabet` |
+| Fairy Large | 648 | n/a | `lunar_alphabet_lrg` |
+| Barbarian Assault | 764 | n/a | `barbassault_font` |
+| Surok | 819 | n/a | `surok_font` |
 
 Supported characters:
 
