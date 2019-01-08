@@ -47,7 +47,7 @@ for fileName in os.listdir('data'):
 
     font['name'] = name = table__n_a_m_e()
     for platform in ((1, 0, 0), (3, 1, 0x409)):  # (Mac, Roman, English), (Windows, Unicode BMP, English US)
-        name.setName('Copyright 1999-2018 Jagex Ltd.', 0, *platform)  # copyright notice
+        name.setName('Copyright 1999-2019 Jagex Ltd.', 0, *platform)  # copyright notice
         name.setName(fontNameHuman, 1, *platform)
         name.setName('Regular', 2, *platform)
         name.setName(fontNameHuman, 3, *platform)
