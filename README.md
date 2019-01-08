@@ -2,6 +2,10 @@
 
 [![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
+All 10 fonts with all 192 characters exactly as appears in-game
+
+![Preview](Preview.png)
+
 [**Download**](https://github.com/RuneStar/fonts/releases) in the following formats. Use `ttf` if unsure.
 
 | name | extension | type | outlines | hints | em-size |
@@ -10,12 +14,6 @@
 | otf | .otf | OpenType | CFF | CFF  | minimum |
 | otf-1k | .otf | OpenType | CFF | CFF | 1000 |
 | svg | .svg | SVG | n/a | n/a | minimum |
-
-Exactly as appears in-game
-
-All 192 characters, including symbols and accented letters
-
-![Preview](Preview.png)
 
 For exact rendering use the below sizes and disable anti-aliasing
 
@@ -29,7 +27,7 @@ For exact rendering use the below sizes and disable anti-aliasing
 
 Source of font names:
 
-| Name | ID | Name in Client | [Name in Cache](https://github.com/RuneStar/cache-names) |
+| Name | ID | Client Name | [Cache Name](https://github.com/RuneStar/cache-names) |
 | --- | --- | --- | --- |
 | Plain 11 | 494 | PLAIN11 | p11_full |
 | Plain 12 | 495 | PLAIN12 | p12_full |
