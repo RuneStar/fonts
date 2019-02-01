@@ -18,16 +18,6 @@ All 10 fonts with all 192 characters exactly as appears in-game
 | bdf | .bdf | Glyph Bitmap Distribution | bitmap |
 | dfont | .dfont | Mac OS X Data Fork Suitcase | bitmap |
 
-For exact rendering use the below sizes and disable anti-aliasing
-
-| Name | pt | px |
-| --- | --- | --- |
-| Plain 11 | 12 | 16 |
-| Plain 12 | 12 | 16 |
-| Bold 12 | 12 | 16 |
-| Quill 8 | 24 | 32 |
-| Quill | 24 | 32 |
-
 Source of font names:
 
 | Name | ID | Client Name | [Cache Name](https://github.com/RuneStar/cache-names) |

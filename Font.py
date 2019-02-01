@@ -16,7 +16,7 @@ from fontTools.ttLib.tables._g_a_s_p import *
 
 logging.basicConfig(level=logging.DEBUG)
 
-revision = 0.1
+revision = 0.2
 
 for fileName in os.listdir('data'):
     fontName = fileName.split('.')[0]
@@ -106,7 +106,7 @@ for fileName in os.listdir('data'):
     head.tableVersion = 1.0
     head.fontRevision = revision
     head.checkSumAdjustment = 0
-    head.unitsPerEm = max(16, 2 ** (maxPowerOfTwo(data['maxDim']) + 1))
+    head.unitsPerEm = max(16, 2 ** (maxPowerOfTwo(data['maxDim'] - 1) + 1))
     head.xMin = head.yMin = head.xMax = head.yMax = 0  # calculated later
     head.lowestRecPPEM = 12
     head.fontDirectionHint = 2
