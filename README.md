@@ -8,15 +8,14 @@ All 10 fonts with all 192 characters exactly as appears in-game
 
 [**Download**](https://github.com/RuneStar/fonts/releases) in the following formats. Use `ttf` if unsure.
 
-| name | extension | format | type |
-| --- | --- | --- | --- |
-| ttf | .ttf | TrueType | outlines |
-| otf | .otf | OpenType | outlines  |
-| otf-1k | .otf | OpenType | outlines; 1000 em size |
-| svg | .svg | Scalable Vector Graphics | outlines |
-| fon | .fon | Windows FON | bitmap |
-| bdf | .bdf | Glyph Bitmap Distribution | bitmap |
-| dfont | .dfont | Mac OS X Data Fork Suitcase | bitmap |
+| name | extension | format |
+| --- | --- | --- |
+| ttf | .ttf | TrueType |
+| otf | .otf | OpenType |
+| otf-1k | .otf | OpenType (1000 em size) |
+| svg | .svg | Scalable Vector Graphics |
+| fon | .fon | Windows FON |
+| bdf | .bdf | Glyph Bitmap Distribution |
 
 Source of font names:
 
