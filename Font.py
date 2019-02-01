@@ -28,7 +28,7 @@ for fileName in os.listdir('data'):
     for glyph in data['glyphs']:
         glyph['name'] = Unicode[glyph['codePoint']]
     data['maxAdvance'] = max((g['advance'] for g in data['glyphs']))
-    data['maxDim'] = max(data['maxAdvance'], data['ascent'])
+    data['maxDim'] = max(data['maxAdvance'], data['maxAscent'])
 
     font = TTFont()
 
@@ -37,13 +37,15 @@ for fileName in os.listdir('data'):
         font.glyphOrder.append('NO-BREAK SPACE')
 
     font['post'] = post = table__p_o_s_t()
-    post.formatType = 3.0
+    post.formatType = 2.0
     post.italicAngle = 0.0
     post.underlinePosition = -1
     post.underlineThickness = 1
     post.isFixedPitch = 0
     post.minMemType42 = post.maxMemType42 = post.minMemType1 = post.maxMemType1 = 0
-    post.glyphOrder = None
+    post.glyphOrder = font.glyphOrder
+    post.extraNames = []
+    post.mapping = {}
 
     font['name'] = name = table__n_a_m_e()
     for platform in ((1, 0, 0), (3, 1, 0x409)):  # (Mac, Roman, English), (Windows, Unicode BMP, English US)
@@ -52,7 +54,7 @@ for fileName in os.listdir('data'):
         name.setName('Regular', 2, *platform)
         name.setName(fontNameHuman, 3, *platform)
         name.setName(fontNameHuman, 4, *platform)
-        name.setName(str(revision), 5, *platform)
+        name.setName('Version ' + str(revision), 5, *platform)
         name.setName(fontName, 6, *platform)
         name.setName('RuneScape is a registered trademark of Jagex Ltd.', 7, *platform)  # trademark notice
         name.setName('Jagex Ltd.', 8, *platform)  # manufacturer
@@ -108,7 +110,7 @@ for fileName in os.listdir('data'):
     head.checkSumAdjustment = 0
     head.unitsPerEm = max(16, 2 ** (maxPowerOfTwo(data['maxDim'] - 1) + 1))
     head.xMin = head.yMin = head.xMax = head.yMax = 0  # calculated later
-    head.lowestRecPPEM = 12
+    head.lowestRecPPEM = 8
     head.fontDirectionHint = 2
     head.indexToLocFormat = 0
     head.glyphDataFormat = 0
@@ -140,12 +142,12 @@ for fileName in os.listdir('data'):
     os2.panose.bXHeight = 0
     os2.ulUnicodeRange1 = os2.ulUnicodeRange2 = os2.ulUnicodeRange3 = os2.ulUnicodeRange4 = 0  # calculated later
     os2.achVendID = ""
-    os2.fsSelection = 0b1000000  # regular
+    os2.fsSelection = 0b11000000  # use typo metrics, regular
     os2.usFirstCharIndex = os2.usLastCharIndex = 0  # calculated later
-    os2.sTypoAscender = data['ascent']
+    os2.sTypoAscender = data['maxAscent']
     os2.sTypoDescender = data['maxDescent'] * -1
     os2.sTypoLineGap = 0
-    os2.usWinAscent = data['ascent']
+    os2.usWinAscent = data['maxAscent']
     os2.usWinDescent = data['maxDescent']
     os2.ulCodePageRange1 = 1  # cp-1252
     os2.ulCodePageRange2 = 0
@@ -153,11 +155,11 @@ for fileName in os.listdir('data'):
     os2.sCapHeight = 0  # calculated later
     os2.usDefaultChar = 0
     os2.usBreakChar = 32  # space
-    os2.usMaxContext = 1
+    os2.usMaxContext = 0
 
     font['hhea'] = hhea = table__h_h_e_a()
     hhea.tableVersion = 0x00010000
-    hhea.ascent = data['ascent']
+    hhea.ascent = data['maxAscent']
     hhea.descent = data['maxDescent'] * -1
     hhea.lineGap = 0
     hhea.advanceWidthMax = 0  # calculated later
