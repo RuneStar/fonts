@@ -1,21 +1,12 @@
 # Old School RuneScape Fonts
 
-[![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
-
-All 10 fonts with all 192 characters exactly as appears in-game
-
 ![Preview](Preview.png)
 
-[**Download**](https://github.com/RuneStar/fonts/releases) in the following formats. Use `ttf` if unsure.
+[![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
-| name | extension | format |
-| --- | --- | --- |
-| ttf | .ttf | TrueType |
-| otf | .otf | OpenType |
-| otf-1k | .otf | OpenType (1000 em size) |
-| svg | .svg | Scalable Vector Graphics |
-| fon | .fon | Windows FON |
-| bdf | .bdf | Glyph Bitmap Distribution |
+[**Download**](https://github.com/RuneStar/fonts/releases) in OpenType or TrueType
+
+All 10 fonts with all 192 characters exactly as appears in-game
 
 Source of font names:
 

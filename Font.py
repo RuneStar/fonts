@@ -16,7 +16,7 @@ from fontTools.ttLib.tables._g_a_s_p import *
 
 logging.basicConfig(level=logging.DEBUG)
 
-revision = 0.2
+revision = 1.100
 
 for fileName in os.listdir('data'):
     fontName = fileName.split('.')[0]
