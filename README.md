@@ -1,8 +1,6 @@
-# Old School RuneScape Fonts
+# Old School RuneScape Fonts [![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
 ![Preview](Preview.png)
-
-[![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
 [**Download**](https://github.com/RuneStar/fonts/releases) in OpenType or TrueType
 
@@ -16,7 +14,7 @@ Source of font names:
 | Plain 12 | 495 | PLAIN12 | p12_full |
 | Bold 12 | 496 | BOLD12 | b12_full |
 | Quill 8 | 497 | n/a | q8_full |
-| Quill | 645 | n/a | ? |
+| Quill | 645 | n/a | quill_oblique_large |
 | Quill Caps Large | 646 | n/a | quill_caps_large |
 | Fairy | 647 | n/a | lunar_alphabet |
 | Fairy Large | 648 | n/a | lunar_alphabet_lrg |
