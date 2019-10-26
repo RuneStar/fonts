@@ -224,4 +224,4 @@ for fileName in os.listdir('data'):
     font2.save(ttfFile)
     os.remove(ttxFile)
 
-subprocess.run([r'C:\Program Files (x86)\FontForgeBuilds\bin\fontforge.exe', '-lang=py', '-script', 'FontForgeScript.py'])
+subprocess.run(['fontforge', '-lang=py', '-script', 'FontForgeScript.py'], shell=True)
