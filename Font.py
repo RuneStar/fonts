@@ -18,6 +18,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 revision = 1.100
 
+timestamp = timestampNow()
+
 for fileName in os.listdir('data'):
     fontName = fileName.split('.')[0]
     fontNameHuman = fontName.replace('-', ' ')
@@ -30,7 +32,7 @@ for fileName in os.listdir('data'):
     data['maxAdvance'] = max((g['advance'] for g in data['glyphs']))
     data['maxDim'] = max(data['maxAdvance'], data['maxAscent'])
 
-    font = TTFont()
+    font = TTFont(recalcTimestamp=False)
 
     font.glyphOrder = ['.notdef'] + [g['name'] for g in data['glyphs']]
     if 'NO-BREAK SPACE' not in font.glyphOrder:
@@ -102,8 +104,7 @@ for fileName in os.listdir('data'):
     font['head'] = head = table__h_e_a_d()
     head.macStyle = 0
     head.flags = 0
-    head.created = timestampNow()
-    head.modified = head.created
+    head.modified = head.created = timestamp
     head.magicNumber = 0x5F0F3CF5
     head.tableVersion = 1.0
     head.fontRevision = revision
