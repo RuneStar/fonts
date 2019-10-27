@@ -16,7 +16,7 @@ from fontTools.ttLib.tables._g_a_s_p import *
 
 logging.basicConfig(level=logging.DEBUG)
 
-revision = 1.100
+revision = 1.101
 
 timestamp = timestampNow()
 
@@ -51,7 +51,7 @@ for fileName in os.listdir('data'):
 
     font['name'] = name = table__n_a_m_e()
     for platform in ((1, 0, 0), (3, 1, 0x409)):  # (Mac, Roman, English), (Windows, Unicode BMP, English US)
-        name.setName('Copyright 1999-2019 Jagex Ltd.', 0, *platform)  # copyright notice
+        name.setName('Public Domain', 0, *platform)  # copyright
         name.setName(fontNameHuman, 1, *platform)
         name.setName('Regular', 2, *platform)
         name.setName(fontNameHuman, 3, *platform)
@@ -64,7 +64,7 @@ for fileName in os.listdir('data'):
         name.setName('From Old School RuneScape, a fantasy MMORPG', 10, *platform)  # description
         name.setName('http://runestar.org', 11, *platform)  # vendor url
         name.setName('http://oldschool.runescape.com', 12, *platform)  # designer url
-        name.setName('http://jagex.com', 14, *platform)  # license url
+        name.setName('Public Domain', 13, *platform)  # license
 
     font['maxp'] = maxp = table__m_a_x_p()
     maxp.tableVersion = 0x10000
