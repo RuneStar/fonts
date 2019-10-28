@@ -1,14 +1,18 @@
-# Old School RuneScape Fonts [![Download](https://img.shields.io/github/downloads/runestar/fonts/total.svg)](https://github.com/runestar/fonts/releases) [![Discord](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
+# Old School RuneScape Fonts
+
+[![downloads](https://img.shields.io/github/downloads/runestar/fonts/total.svg)](https://github.com/runestar/fonts/releases)
+[![license](https://img.shields.io/github/license/runestar/fonts)](LICENSE)
+[![chat](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
 ![Preview](Preview.png)
 
 ![Preview2](Preview2.png)
 
-[**Download**](https://github.com/RuneStar/fonts/releases) in OpenType or TrueType
+[**Download**](https://github.com/runestar/fonts/releases) in OpenType or TrueType
 
 All 10 fonts with all 192 characters exactly as appears in-game
 
-| Name | Size | ID | Client Name | [Cache Name](https://github.com/RuneStar/cache-names) |
+| Name | Size | ID | Client Name | [Cache Name](https://github.com/runestar/cache-names) |
 | --- | --- | --- | --- | --- |
 | Plain 11 | 16px, 12pt | 494 | PLAIN11 | p11_full |
 | Plain 12 | 16px, 12pt | 495 | PLAIN12 | p12_full |
