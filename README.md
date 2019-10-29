@@ -19,7 +19,7 @@ All 10 fonts with all 192 characters exactly as appears in-game
 | Bold 12 | 16px, 12pt | 496 | BOLD12 | b12_full |
 | Quill 8 | 16px, 12pt | 497 | n/a | q8_full |
 | Quill | 32px, 24pt | 645 | n/a | quill_oblique_large |
-| Quill Caps Large | 64px, 48pt | 646 | n/a | quill_caps_large |
+| Quill Caps | 64px, 48pt | 646 | n/a | quill_caps_large |
 | Fairy | 32px, 24pt | 647 | n/a | lunar_alphabet |
 | Fairy Large | 64px, 48pt | 648 | n/a | lunar_alphabet_lrg |
 | Barbarian Assault | 32px, 24pt | 764 | n/a | barbassault_font |
