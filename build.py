@@ -1,4 +1,6 @@
-import json
+from json import load
+from os import path
+import shutil
 import subprocess
 
 from fontTools.ttLib import *
@@ -14,21 +16,21 @@ from fontTools.ttLib.tables._g_l_y_f import *
 from fontTools.ttLib.tables._l_o_c_a import *
 from fontTools.ttLib.tables._g_a_s_p import *
 
-logging.basicConfig(level=logging.DEBUG)
-
-revision = 1.101
-
+logging.basicConfig(level=logging.WARNING)
+revision = '1.101'
 timestamp = timestampNow()
 
-for fileName in os.listdir('data'):
-    fontName = fileName.split('.')[0]
-    fontNameHuman = fontName.replace('-', ' ')
 
-    with open(os.path.join('data', fileName)) as f:
-        data = json.load(f)
+def make_font(json, ttf, ttx, otf):
+    font_name = str(path.splitext(path.basename(ttf))[0])
+    font_name_human = font_name.replace('-', ' ')
+    game_name = font_name.split('-')[0]
+    with open(json) as f:
+        data = load(f)
 
     for glyph in data['glyphs']:
         glyph['name'] = Unicode[glyph['codePoint']]
+    data['glyphs'] = [g for g in data['glyphs'] if g['name'] != '????']
     data['maxAdvance'] = max((g['advance'] for g in data['glyphs']))
     data['maxDim'] = max(data['maxAdvance'], data['maxAscent'])
 
@@ -52,19 +54,23 @@ for fileName in os.listdir('data'):
     font['name'] = name = table__n_a_m_e()
     for platform in ((1, 0, 0), (3, 1, 0x409)):  # (Mac, Roman, English), (Windows, Unicode BMP, English US)
         name.setName('Public Domain', 0, *platform)  # copyright
-        name.setName(fontNameHuman, 1, *platform)
+        name.setName(font_name_human, 1, *platform)
         name.setName('Regular', 2, *platform)
-        name.setName(fontNameHuman, 3, *platform)
-        name.setName(fontNameHuman, 4, *platform)
-        name.setName('Version ' + str(revision), 5, *platform)
-        name.setName(fontName, 6, *platform)
-        name.setName('RuneScape is a registered trademark of Jagex Ltd.', 7, *platform)  # trademark notice
+        name.setName(font_name_human, 3, *platform)
+        name.setName(font_name_human, 4, *platform)
+        name.setName('Version ' + revision, 5, *platform)
+        name.setName(font_name, 6, *platform)
         name.setName('Jagex Ltd.', 8, *platform)  # manufacturer
         name.setName('Jagex Ltd.', 9, *platform)  # designer
-        name.setName('From Old School RuneScape, a fantasy MMORPG', 10, *platform)  # description
         name.setName('http://runestar.org', 11, *platform)  # vendor url
-        name.setName('http://oldschool.runescape.com', 12, *platform)  # designer url
         name.setName('Public Domain', 13, *platform)  # license
+        name.setName(game_name + ' is a registered trademark of Jagex Ltd.', 7, *platform)  # trademark notice
+        if game_name == 'RuneScape':
+            name.setName('From Old School RuneScape, a fantasy MMORPG', 10, *platform)  # description
+            name.setName('http://oldschool.runescape.com', 12, *platform)  # designer url
+        elif game_name == 'FunOrb':
+            name.setName('From FunOrb, a casual gaming site', 10, *platform)
+            name.setName('http://funorb.com', 12, *platform)
 
     font['maxp'] = maxp = table__m_a_x_p()
     maxp.tableVersion = 0x10000
@@ -214,15 +220,30 @@ for fileName in os.listdir('data'):
 
     os2.recalcUnicodeRanges(font)
 
-    os.makedirs('ttf', exist_ok=True)
-    ttfFile = os.path.join('ttf', fontName + '.ttf')
-    ttxFile = fontName + '.ttx'
-
-    font.saveXML(ttxFile)
-
+    font.saveXML(ttx)
     font2 = TTFont(recalcTimestamp=False)
-    font2.importXML(ttxFile)
-    font2.save(ttfFile)
-    os.remove(ttxFile)
+    font2.importXML(ttx)
+    font2.save(ttf)
 
-subprocess.run(['fontforge', '-lang=py', '-script', 'FontForgeScript.py'], shell=True)
+    subprocess.run(['fontforge', '-lang=py', '-script', 'fontforge_script.py', ttf, otf], shell=True)
+
+
+for category in os.listdir('data'):
+    category_dir = path.join('data', category)
+    out_dir = 'out'
+    out_category_dir = path.join(out_dir, category)
+    ttf_dir = path.join(out_category_dir, 'ttf')
+    otf_dir = path.join(out_category_dir, 'otf')
+    os.makedirs(ttf_dir, exist_ok=True)
+    os.makedirs(otf_dir, exist_ok=True)
+    for fileName in os.listdir(category_dir):
+        font_name = path.splitext(fileName)[0]
+        json = path.join(category_dir, fileName)
+        ttf = path.join(ttf_dir, font_name + '.ttf')
+        ttx = path.join(out_category_dir, font_name + '.ttx')
+        otf = path.join(otf_dir, font_name + '.otf')
+        print(font_name)
+        make_font(json, ttf, ttx, otf)
+        os.remove(ttx)
+    zip = path.join(out_dir, category)
+    shutil.make_archive(zip, 'zip', out_category_dir)

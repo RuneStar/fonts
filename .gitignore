@@ -1,4 +1,3 @@
 *.idea/
-*.ttx
-*.ttf
-*.otf
+venv/
+out/
