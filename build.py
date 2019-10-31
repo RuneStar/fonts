@@ -228,14 +228,29 @@ def make_font(json, ttf, ttx, otf):
     subprocess.run(['fontforge', '-lang=py', '-script', 'fontforge_script.py', ttf, otf], shell=True)
 
 
+def make_preview(ttf, png):
+    font_name_human = str(path.splitext(path.basename(ttf))[0]).replace('-', ' ')
+    subprocess.run([
+        'magick', 'convert',
+        '-pointsize', '64',
+        '-font', ttf,
+        '-gravity', 'center',
+        f'label:{font_name_human}\\nABCDEFGHIJKLMNOPQRSTUVWXYZ\\nabcdefghijklmnopqrstuvwxyz\\n0123456789',
+        png
+    ], shell=True)
+
+
 for category in os.listdir('data'):
     category_dir = path.join('data', category)
     out_dir = 'out'
     out_category_dir = path.join(out_dir, category)
     ttf_dir = path.join(out_category_dir, 'ttf')
     otf_dir = path.join(out_category_dir, 'otf')
+    preview_dir = 'previews'
+    preview_category_dir = path.join(preview_dir, category)
     os.makedirs(ttf_dir, exist_ok=True)
     os.makedirs(otf_dir, exist_ok=True)
+    os.makedirs(preview_category_dir, exist_ok=True)
     for fileName in os.listdir(category_dir):
         font_name = path.splitext(fileName)[0]
         json = path.join(category_dir, fileName)
@@ -245,5 +260,7 @@ for category in os.listdir('data'):
         print(font_name)
         make_font(json, ttf, ttx, otf)
         os.remove(ttx)
+        png = path.join(preview_category_dir, font_name + '.png')
+        make_preview(ttf, png)
     zip = path.join(out_dir, category)
     shutil.make_archive(zip, 'zip', out_category_dir)
