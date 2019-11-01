@@ -74,8 +74,7 @@ def make_font(json, ttf, ttx, otf):
 
     font['maxp'] = maxp = table__m_a_x_p()
     maxp.tableVersion = 0x10000
-    maxp.numGlyphs = 0  # calculated later
-    maxp.maxPoints = maxp.maxContours = 0  # calculated later
+    maxp.numGlyphs = maxp.maxPoints = maxp.maxContours = 0  # auto
     maxp.maxCompositePoints = 0
     maxp.maxCompositeContours = 0
     maxp.maxZones = 1
@@ -109,22 +108,22 @@ def make_font(json, ttf, ttx, otf):
 
     font['head'] = head = table__h_e_a_d()
     head.macStyle = 0
-    head.flags = 0
+    head.flags = 0  # auto
     head.modified = head.created = timestamp
     head.magicNumber = 0x5F0F3CF5
     head.tableVersion = 1.0
     head.fontRevision = revision
     head.checkSumAdjustment = 0
     head.unitsPerEm = max(16, 2 ** (maxPowerOfTwo(data['maxDim'] - 1) + 1))
-    head.xMin = head.yMin = head.xMax = head.yMax = 0  # calculated later
+    head.xMin = head.yMin = head.xMax = head.yMax = 0  # auto
     head.lowestRecPPEM = 8
-    head.fontDirectionHint = 2
+    head.fontDirectionHint = 2  # normal roman
     head.indexToLocFormat = 0
     head.glyphDataFormat = 0
 
     font['OS/2'] = os2 = table_O_S_2f_2()
     os2.version = 4
-    os2.xAvgCharWidth = 0  # calculated later
+    os2.xAvgCharWidth = 0  # auto
     os2.usWeightClass = 400  # normal
     os2.usWidthClass = 5  # normal
     os2.fsType = 0
@@ -147,10 +146,10 @@ def make_font(json, ttf, ttx, otf):
     os2.panose.bLetterForm = 0
     os2.panose.bMidline = 0
     os2.panose.bXHeight = 0
-    os2.ulUnicodeRange1 = os2.ulUnicodeRange2 = os2.ulUnicodeRange3 = os2.ulUnicodeRange4 = 0  # calculated later
+    os2.ulUnicodeRange1 = os2.ulUnicodeRange2 = os2.ulUnicodeRange3 = os2.ulUnicodeRange4 = 0  # auto
     os2.achVendID = ""
     os2.fsSelection = 0b11000000  # use typo metrics, regular
-    os2.usFirstCharIndex = os2.usLastCharIndex = 0  # calculated later
+    os2.usFirstCharIndex = os2.usLastCharIndex = 0  # auto
     os2.sTypoAscender = data['maxAscent']
     os2.sTypoDescender = data['maxDescent'] * -1
     os2.sTypoLineGap = 0
@@ -158,8 +157,7 @@ def make_font(json, ttf, ttx, otf):
     os2.usWinDescent = data['maxDescent']
     os2.ulCodePageRange1 = 1  # cp-1252
     os2.ulCodePageRange2 = 0
-    os2.sxHeight = 0  # calculated later
-    os2.sCapHeight = 0  # calculated later
+    os2.sxHeight = os2.sCapHeight = 0  # auto
     os2.usDefaultChar = 0
     os2.usBreakChar = 32  # space
     os2.usMaxContext = 0
@@ -169,23 +167,23 @@ def make_font(json, ttf, ttx, otf):
     hhea.ascent = data['maxAscent']
     hhea.descent = data['maxDescent'] * -1
     hhea.lineGap = 0
-    hhea.advanceWidthMax = 0  # calculated later
+    hhea.advanceWidthMax = 0  # auto
     hhea.minLeftSideBearing = 0
     hhea.minRightSideBearing = 0
-    hhea.xMaxExtent = 0  # calculated later
+    hhea.xMaxExtent = 0  # auto
     hhea.caretSlopeRise = 1
     hhea.caretSlopeRun = 0
     hhea.caretOffset = 0
     hhea.reserved0 = hhea.reserved1 = hhea.reserved2 = hhea.reserved3 = 0
     hhea.metricDataFormat = 0
-    hhea.numberOfHMetrics = 0  # calculated later
+    hhea.numberOfHMetrics = 0  # auto
 
     font['glyf'] = glyf = table__g_l_y_f()
     glyf.glyphs = {}
     for glyph in data['glyphs']:
         g = Glyph()
         g.program = None
-        g.xMin = g.yMin = g.xMax = g.yMax = 0  # calculated later
+        g.xMin = g.yMin = g.xMax = g.yMax = 0  # auto
         g.numberOfContours = 0
         g.coordinates = []
         g.flags = []
