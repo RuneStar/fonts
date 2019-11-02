@@ -17,7 +17,7 @@ from fontTools.ttLib.tables._l_o_c_a import *
 from fontTools.ttLib.tables._g_a_s_p import *
 
 logging.basicConfig(level=logging.WARNING)
-revision = '1.101'
+revision = '1.102'
 timestamp = timestampNow()
 
 
@@ -147,7 +147,7 @@ def make_font(json, ttf, ttx, otf):
     os2.panose.bMidline = 0
     os2.panose.bXHeight = 0
     os2.ulUnicodeRange1 = os2.ulUnicodeRange2 = os2.ulUnicodeRange3 = os2.ulUnicodeRange4 = 0  # auto
-    os2.achVendID = ""
+    os2.achVendID = "h5wb"
     os2.fsSelection = 0b11000000  # use typo metrics, regular
     os2.usFirstCharIndex = os2.usLastCharIndex = 0  # auto
     os2.sTypoAscender = data['maxAscent']
