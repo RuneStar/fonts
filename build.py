@@ -260,5 +260,5 @@ for category in os.listdir('data'):
         os.remove(ttx)
         png = path.join(preview_category_dir, font_name + '.png')
         make_preview(ttf, png)
-    zip = path.join(out_dir, category)
+    zip = path.join(out_dir, category + "-Fonts")
     shutil.make_archive(zip, 'zip', out_category_dir)
