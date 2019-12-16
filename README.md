@@ -1,6 +1,6 @@
 # Old School RuneScape Fonts
 
-[![downloads](https://img.shields.io/github/downloads/runestar/fonts/total.svg)](https://github.com/runestar/fonts/releases)
+[![downloads](https://img.shields.io/github/downloads/runestar/fonts/total.svg)](https://github.com/runestar/fonts/releases/latest)
 [![license](https://img.shields.io/github/license/runestar/fonts)](LICENSE)
 [![chat](https://img.shields.io/discord/384870460640329728.svg?logo=discord)](https://discord.gg/G2kxrnU)
 
@@ -8,7 +8,7 @@
 
 ![Preview2](Preview2.png)
 
-[**Download**](https://github.com/runestar/fonts/releases) in OpenType or TrueType
+[**Download**](https://github.com/runestar/fonts/releases/latest) in OpenType or TrueType
 
 All 10 fonts with all 192 characters exactly as appears in-game
 
