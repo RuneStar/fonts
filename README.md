@@ -12,18 +12,18 @@
 
 All 10 fonts with all 192 characters exactly as appears in-game
 
-| Name | Size | ID | Client Name | [Cache Name](https://github.com/runestar/cache-names) |
-| --- | --- | --- | --- | --- |
-| Plain 11 | 16px, 12pt | 494 | PLAIN11 | p11_full |
-| Plain 12 | 16px, 12pt | 495 | PLAIN12 | p12_full |
-| Bold 12 | 16px, 12pt | 496 | BOLD12 | b12_full |
-| Quill 8 | 16px, 12pt | 497 | n/a | q8_full |
-| Quill | 32px, 24pt | 645 | n/a | quill_oblique_large |
-| Quill Caps | 64px, 48pt | 646 | n/a | quill_caps_large |
-| Fairy | 32px, 24pt | 647 | n/a | lunar_alphabet |
-| Fairy Large | 64px, 48pt | 648 | n/a | lunar_alphabet_lrg |
-| Barbarian Assault | 32px, 24pt | 764 | n/a | barbassault_font |
-| Surok | 16px, 12pt | 819 | n/a | surok_font |
+| Name | Preview | Size | ID | Client Name | [Cache Name](https://github.com/runestar/cache-names) |
+| --- | --- | --- | --- | --- | --- |
+| Plain 11 | [link](previews/RuneScape/RuneScape-Plain-11.png) | 16px, 12pt | 494 | PLAIN11 | p11_full |
+| Plain 12 | [link](previews/RuneScape/RuneScape-Plain-12.png) | 16px, 12pt | 495 | PLAIN12 | p12_full |
+| Bold 12 | [link](previews/RuneScape/RuneScape-Bold-12.png) | 16px, 12pt | 496 | BOLD12 | b12_full |
+| Quill 8 | [link](previews/RuneScape/RuneScape-Quill-8.png) | 16px, 12pt | 497 | n/a | q8_full |
+| Quill | [link](previews/RuneScape/RuneScape-Quill.png) | 32px, 24pt | 645 | n/a | quill_oblique_large |
+| Quill Caps | [link](previews/RuneScape/RuneScape-Quill-Caps.png) | 64px, 48pt | 646 | n/a | quill_caps_large |
+| Fairy | [link](previews/RuneScape/RuneScape-Fairy.png) | 32px, 24pt | 647 | n/a | lunar_alphabet |
+| Fairy Large | [link](previews/RuneScape/RuneScape-Fairy-Large.png) | 64px, 48pt | 648 | n/a | lunar_alphabet_lrg |
+| Barbarian Assault | [link](previews/RuneScape/RuneScape-Barbarian-Assault.png) | 32px, 24pt | 764 | n/a | barbassault_font |
+| Surok | [link](previews/RuneScape/RuneScape-Surok.png) | 16px, 12pt | 819 | n/a | surok_font |
 
 Supported characters:
 
