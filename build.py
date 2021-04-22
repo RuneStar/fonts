@@ -17,7 +17,7 @@ from fontTools.ttLib.tables._l_o_c_a import *
 from fontTools.ttLib.tables._g_a_s_p import *
 
 logging.basicConfig(level=logging.WARNING)
-revision = '1.102'
+revision = '1.103'
 timestamp = timestampNow()
 
 
@@ -112,7 +112,7 @@ def make_font(json, ttf, ttx, otf):
     head.modified = head.created = timestamp
     head.magicNumber = 0x5F0F3CF5
     head.tableVersion = 1.0
-    head.fontRevision = revision
+    head.fontRevision = float(revision)
     head.checkSumAdjustment = 0
     head.unitsPerEm = max(16, 2 ** (maxPowerOfTwo(data['maxDim'] - 1) + 1))
     head.xMin = head.yMin = head.xMax = head.yMax = 0  # auto
@@ -193,7 +193,7 @@ def make_font(json, ttf, ttx, otf):
         width = glyph['width']
         for i, p in enumerate(glyph['pixels']):
             x += 1
-            if i % width is 0:
+            if i % width == 0:
                 x = 0
                 y -= 1
             if p == 1:

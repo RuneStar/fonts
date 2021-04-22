@@ -10,7 +10,7 @@
 
 [**Download**](https://github.com/runestar/fonts/releases/latest) in OpenType or TrueType
 
-All 10 fonts with all 192 characters exactly as appears in-game
+Every font with all characters exactly as appears in-game
 
 | Name | Preview | Size | ID | Client Name | [Cache Name](https://github.com/runestar/cache-names) |
 | --- | --- | --- | --- | --- | --- |
@@ -220,4 +220,8 @@ Supported characters:
 | ý | 253 | LATIN SMALL LETTER Y WITH ACUTE |
 | þ | 254 | LATIN SMALL LETTER THORN |
 | ÿ | 255 | LATIN SMALL LETTER Y WITH DIAERESIS |
+| Œ | 338 | LATIN CAPITAL LIGATURE OE |
+| œ | 339 | LATIN SMALL LIGATURE OE |
+| Ÿ | 376 | LATIN CAPITAL LETTER Y WITH DIAERESIS |
+| — | 8212 | EM DASH |
 | € | 8364 | EURO SIGN |
